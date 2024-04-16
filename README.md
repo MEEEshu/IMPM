@@ -4,7 +4,7 @@ Pas 2: Pornim SalvareDate.py
 Pas 3: Pornim GUI_Date.py
 Pas 4: Pornim GUI_Date_temporare.py
 
-Pentru acest proiect se folosesc 2 placi ESP32-WROOM, un senzor DHT22 si un senzor MQ135
+Pentru acest proiect se folosesc 2 placi ESP32-WROOM, un senzor DHT22 si un senzor MQ135. Rulam acelasi cod pe ambele placi ESP32, conectand la pinii aferenti codului.
 Pentru pasul 3 si 4 putem sa le accesam pe ambele simultan, sau putem accesa fiecare separat in functie de ce valori dorim sa vedem pe grafice
 GUI_Date este pentru datele prelevate de cand pornim pentru prima oara placile sa achizitioneze date (de prima oara de cand pornim SalvareDate.py)
 GUI_Date_temporare este pentru datele prelevate de la ultima pornire a aplicatiei SalvareDate.py
@@ -19,7 +19,7 @@ Step 2: Start SalvareDate.py
 Step 3: Start GUI_Date.py
 Step 4: Start GUI_Date_temporare.py
 
-For this project, 2 ESP32-WROOM boards, a DHT22 sensor, and an MQ135 sensor are used.
+For this project, 2 ESP32-WROOM boards, a DHT22 sensor, and an MQ135 sensor are used.We run the same code on both ESP32 boards, connecting to the corresponding pins as indicated in the code.
 For steps 3 and 4, we can access both simultaneously, or we can access each one separately depending on which values we want to see on the graphs.
 GUI_Date is for the data collected from the first time we start the boards to acquire data (from the first time we start SalvareDate.py).
 GUI_Date_temporare is for the data collected since the last startup of the SalvareDate.py application.
@@ -34,7 +34,7 @@ Schritt 2: Starten Sie SalvareDate.py
 Schritt 3: Starten Sie GUI_Date.py
 Schritt 4: Starten Sie GUI_Date_temporare.py
 
-Für dieses Projekt werden 2 ESP32-WROOM-Platinen, ein DHT22-Sensor und ein MQ135-Sensor verwendet.
+Für dieses Projekt werden 2 ESP32-WROOM-Platinen, ein DHT22-Sensor und ein MQ135-Sensor verwendet.Wir führen denselben Code auf beiden ESP32-Boards aus und verbinden sie mit den entsprechenden Pins gemäß dem Code.
 Für Schritt 3 und 4 können wir beide gleichzeitig zugreifen oder wir können jeden separat zugreifen, je nachdem, welche Werte wir auf den Grafiken sehen möchten.
 GUI_Date ist für die Daten gedacht, die seit dem ersten Start der Platinen zur Datenerfassung (seit dem ersten Start von SalvareDate.py) gesammelt wurden.
 GUI_Date_temporare ist für die Daten gedacht, die seit dem letzten Start der SalvareDate.py-Anwendung gesammelt wurden.
