@@ -83,7 +83,7 @@ def Submit():
         label_text2.set("Bifeaza pentru umiditate")
     #conditiile pentru checkboxes - calitatea aerului
     if checktempresim.get():
-        feels_like = data.iloc[-1]['CalitateAer']
+        feels_like = str(data.iloc[-1]['CalitateAer'])
         label_text3.set("Calitate Aer " + feels_like )
     else:
         label_text3.set("Bifeaza pentru calitatea Aerului")
@@ -108,11 +108,11 @@ submit_button2.grid(row=2, column=3)
 
 # Buton pentru a afișa grafic cu indice confort
 submit_button3 = tk.Button(root, text='Indice Confort', command=IndiceConfort)
-submit_button3.grid(row=2, column=4)
+submit_button3.grid(row=2, column=4, columnspan=2)
 
 # Buton pentru a afișa datele selectate
 submit_button = tk.Button(root, text='Afiseaza Date', command=Submit)
-submit_button.grid(row=6, column=1, columnspan=2)
+submit_button.grid(row=7, column=1, columnspan=2)
 
 # Eticheta pentru afisarea orasului
 label_text0 = tk.StringVar()

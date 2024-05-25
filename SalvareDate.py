@@ -12,11 +12,11 @@ import time
 
 with open("date_meteo.csv","w",newline="") as f:
     writer = csv.writer(f)
-    writer.writerow(["Data","Temperatura","Umiditate","ValoareSenzorMq135","CalitateAer"])
+    writer.writerow(["Data","Temperatura","Umiditate","ValoareSenzorMq135","CalitateAer","IndiceConfort"])
 
 with open("date_meteo_temporare.csv","w",newline="") as f:
     writer = csv.writer(f)
-    writer.writerow(["Data","Temperatura","Umiditate","ValoareSenzorMq135","CalitateAer"])
+    writer.writerow(["Data","Temperatura","Umiditate","ValoareSenzorMq135","CalitateAer","IndiceConfort"])
 
 def save_to_csv_temporary(data):
     with open('date_meteo_temporare.csv', mode='a', newline='') as file:
@@ -30,7 +30,7 @@ def save_to_csv(data):
 
 try:
     while True:
-        with serial.Serial('COM6', 9600) as ser:
+        with serial.Serial('COM7', 9600) as ser:
             line = ser.readline().decode('latin1').strip()
             data = line.split(',')
             if len(data) == 5:

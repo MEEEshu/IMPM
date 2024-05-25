@@ -4,20 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Date Meteorologice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        h2 {
+            color: #666;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <h1>Date Meteorologice</h1>
-    <h2>Aceste date sunt preluate de la un senzor digital DHT22 si un senzor MQ135 cu prelucrare de date analogice</h2>
-    
-    <button onclick="getWeatherData()">Obține Date Meteo</button>
-    <br><br>
-    <button onclick="getTemperatureData()">Temperatura</button>
-    <br><br>
-    <button onclick="getHumidityData()">Umiditate</button>
-    <br><br>
-    <button onclick="getAirQualityData()">Calitatea Aerului</button>
-    <br><br>
-    <button onclick="getSensorData()">Senzor</button>
+    <div class="container">
+        <h1>Date Meteorologice</h1>
+        <h2>Aceste date sunt preluate de la un senzor digital DHT22 și un senzor MQ135 cu prelucrare de date analogice</h2>
+        
+        <button onclick="getWeatherData()">Obține Date Meteo</button>
+        <button onclick="getTemperatureData()">Temperatura</button>
+        <button onclick="getHumidityData()">Umiditate</button>
+        <button onclick="getAirQualityData()">Calitatea Aerului</button>
+        <button onclick="getSensorData()">Senzor</button>
+        <button onclick="getComfortIndexData()">Indice Confort</button>
+    </div>
     
     <script>
         function makeRequest(method, url, callback) {
@@ -38,7 +78,7 @@
         }
 
         function getWeatherData() {
-            makeRequest('GET', '/meteo', function(err, data) {
+            makeRequest('GET', '/meteo/date', function(err, data) {
                 if (err) {
                     console.error('Error:', err);
                 } else {
@@ -88,6 +128,17 @@
                 } else {
                     console.log('Senzor:', data);
                     alert('Valoare Senzor MQ135: ' + data.valoare_senzor_mq135);
+                }
+            });
+        }
+
+        function getComfortIndexData() {
+            makeRequest('GET', '/meteo/indice', function(err, data) {
+                if (err) {
+                    console.error('Error:', err);
+                } else {
+                    console.log('Indice Confort:', data);
+                    alert('Indice Confort: ' + data.indiceConfort);
                 }
             });
         }
