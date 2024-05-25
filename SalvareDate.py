@@ -33,13 +33,14 @@ try:
         with serial.Serial('COM6', 9600) as ser:
             line = ser.readline().decode('latin1').strip()
             data = line.split(',')
-            if len(data) == 4:
+            if len(data) == 5:
                 date_meteo = {
                     'Data': time.strftime("%Y-%m-%d %H:%M:%S"),
                     'Temperatura': float(data[0]),
                     'Umiditate': float(data[1]),
                     'ValoareSenzorMq135': float(data[2]),
-                    'CalitateAer': data[3]
+                    'CalitateAer': data[4],
+                    'IndiceConfort' : data[3]
                 }
                 save_to_csv(date_meteo)
                 save_to_csv_temporary(date_meteo)

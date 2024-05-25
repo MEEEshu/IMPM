@@ -14,6 +14,7 @@ y=data['Temperatura'].tolist()
 z=data['Umiditate'].tolist()
 w=data['ValoareSenzorMq135'].tolist()
 a=data['CalitateAer'].tolist()
+b=data['IndiceConfort'].tolist()
 
 numar_randuri = len(data)
 
@@ -24,8 +25,8 @@ root.geometry('600x200')
 # Setarea iconului ferestrei
 root.iconbitmap("imagine.ico") 
 
+
 def temperatura(): 
-    #realizam o functie pentru animarea in timp real a valorilor intr-un grafic 
     plot1,ax1 = plt.subplots() 
     ax1.plot(x,y, linestyle='solid',color = "green",label= "Temperatura") 
     ax1.set_title("Temperatura medie") 
@@ -35,7 +36,6 @@ def temperatura():
     ax1.set_ylim([0,50]) 
     plt.tight_layout() 
     plt.show() 
-#ax1.set_xlim([0,3]) 
 
 def Umiditate(): 
     plot2,ax2 = plt.subplots()   
@@ -44,20 +44,29 @@ def Umiditate():
     ax2.set_xlabel("Perioada") 
     ax2.set_ylabel("Valori umiditate %") 
     ax2.set_ylim([10,70]) 
-    #ax2.set_xlim([0,3]) 
     ax2.legend() 
     plt.tight_layout() 
     plt.show()
 
 def ValoareSenzor(): 
     plot2,ax3 = plt.subplots()   
-    ax3.plot(x,z, linestyle='solid',color = "blue", label='Umiditate') 
+    ax3.plot(x,w, linestyle='solid',color = "blue", label='Valoare Analogica') 
     ax3.set_title("Valoare Analogica medie") 
     ax3.set_xlabel("Perioada") 
     ax3.set_ylabel("Valori Analogice MQ135") 
     ax3.set_ylim([10,70]) 
-    #ax3.set_xlim([0,3]) 
     ax3.legend() 
+    plt.tight_layout() 
+    plt.show()
+
+def IndiceConfort(): 
+    plot2,ax4 = plt.subplots()   
+    ax4.plot(x,b, linestyle='solid',color = "purple", label='Indice Confort') 
+    ax4.set_title("Indice Confort") 
+    ax4.set_xlabel("Perioada") 
+    ax4.set_ylabel("Valori Indice Confort") 
+    ax4.set_ylim([0,100]) 
+    ax4.legend() 
     plt.tight_layout() 
     plt.show()
 
@@ -73,27 +82,36 @@ def Submit():
         label_text2.set("Umiditate: " + humidity)
     else:
         label_text2.set("Bifeaza pentru umiditate")
-    #conditiile pentru checkboxes - temperatura resimtita
+    #conditiile pentru checkboxes - calitatea aerului
     if checktempresim.get():
         feels_like = data.iloc[-1]['CalitateAer']
         label_text3.set("Calitate Aer " + feels_like )
     else:
         label_text3.set("Bifeaza pentru calitatea Aerului")
-
+    #conditiile pentru checkboxes - indice confort
+    if checkcomfort.get():
+        comfort_index = data.iloc[-1]['IndiceConfort']
+        label_text4.set("Indice Confort: " + str(comfort_index))
+    else:
+        label_text4.set("Bifeaza pentru Indice Confort")
 
 # Buton pentru a afișa grafic cu temperatura
 submit_button = tk.Button(root, text='Temperatura', command=temperatura)
 submit_button.grid(row=2, column=0)
 
-# Buton pentru a afișa grafic cu temperatura
+# Buton pentru a afișa grafic cu umiditatea
 submit_button1 = tk.Button(root, text='Umiditate', command=Umiditate)
 submit_button1.grid(row=2, column=1)
 
-# Buton pentru a afișa grafic cu temperatura
+# Buton pentru a afișa grafic cu valoare analogica
 submit_button2 = tk.Button(root, text='Valoare Analogica', command=ValoareSenzor)
 submit_button2.grid(row=2, column=3)
 
-# Buton pentru a afișa grafic cu temperatura
+# Buton pentru a afișa grafic cu indice confort
+submit_button3 = tk.Button(root, text='Indice Confort', command=IndiceConfort)
+submit_button3.grid(row=2, column=4)
+
+# Buton pentru a afișa datele selectate
 submit_button = tk.Button(root, text='Afiseaza Date', command=Submit)
 submit_button.grid(row=6, column=1, columnspan=2)
 
@@ -131,16 +149,27 @@ checkhum = tk.BooleanVar()
 check2 = tk.Checkbutton(root, text = "Doresti umiditatea?", variable = checkhum)
 check2.grid(row = 4, column = 0)
 
-# Etichetă pentru afișarea Temperaturii resimțite
+# Etichetă pentru afișarea Calității Aerului
 label_text3 = tk.StringVar()
 label_text3.set("Bifeaza pentru calitatea Aerului")
 label3 = tk.Label(root, textvariable=label_text3)
 label3.grid(row=5, column=1, columnspan=2)
 
-# Checkbutton pentru temperatura resimtita
+# Checkbutton pentru Calitatea Aerului
 checktempresim = tk.BooleanVar()
 check3 = tk.Checkbutton(root, text = "Doresti Calitatea Aerului?", variable = checktempresim)
 check3.grid(row = 5, column = 0)
+
+# Etichetă pentru afișarea Indice Confort
+label_text4 = tk.StringVar()
+label_text4.set("Bifeaza pentru Indice Confort")
+label4 = tk.Label(root, textvariable=label_text4)
+label4.grid(row=6, column=1, columnspan=2)
+
+# Checkbutton pentru Indice Confort
+checkcomfort = tk.BooleanVar()
+check4 = tk.Checkbutton(root, text = "Doresti Indice Confort?", variable = checkcomfort)
+check4.grid(row = 6, column = 0)
 
 # Rulare aplicație
 root.mainloop()

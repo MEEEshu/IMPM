@@ -19,12 +19,13 @@ def read_serial_data():
     
     line = ser.readline().decode('latin1').strip()
     data = line.split(',')
-    if len(data) == 4:
+    if len(data) == 5:
         car_data = {
             'temperatura': float(data[0]),
             'umiditate': float(data[1]),
             'valoare_senzor_mq135': float(data[2]),
-            'calitate_aer': data[3]
+            'calitate_aer': data[4],
+            'indiceConfort' : data[3]
         }
         return car_data
 
@@ -33,7 +34,7 @@ def read_serial_data():
 # Endpoint pentru pagina principală
 @app.route('/')
 def home():
-    return render_template('interfata_client2.html')
+    return render_template('interfata_clientv2.html')
 
 # Endpoint pentru obținerea datelor meteorologice
 @app.route('/meteo/date', methods=['GET'])
@@ -64,6 +65,12 @@ def get_air_quality_data():
 def get_sensor_data():
     car_data = read_serial_data()
     return jsonify({'valoare_senzor_mq135': car_data['valoare_senzor_mq135']})
+
+# Endpoint pentru obținerea datelor meteorologice - senzor
+@app.route('/meteo/indice', methods=['GET'])
+def get_ITU():
+    car_data = read_serial_data()
+    return jsonify({'indiceConfort': car_data['indiceConfort']})
 
 @app.route('/client')
 def client_interface():
