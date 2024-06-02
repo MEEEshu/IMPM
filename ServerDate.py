@@ -3,7 +3,17 @@ import serial
 import csv
 import schedule
 import apscheduler
+import math
 
+PPM = 0
+
+# Valorile pentru variabilele din formulă
+k = -0.464000  # Exemplu de valoare pentru k
+RL = 4700.000  # Exemplu de valoare pentru RL
+Ro = 100.000  # Exemplu de valoare pentru Ro
+Va = 4096.000  # Exemplu de valoare pentru Va
+#Vm = 2.5  # Exemplu de valoare pentru Vm
+m = 0.433000  # Exemplu de valoare pentru m
 
 app = Flask(__name__)
 
@@ -15,15 +25,15 @@ def read_serial_data():
     # Așteptați ca portul serial să fie deschis
     if not ser.is_open:
         ser.open()
-
-    
     line = ser.readline().decode('latin1').strip()
     data = line.split(',')
+    Vm = int(data[2])
+    PPM = 10 ** (1 / k * (math.log10(RL / Ro * ((Va / Vm) - 1)) - m)) * 1000000
     if len(data) == 5:
         car_data = {
             'temperatura': float(data[0]),
             'umiditate': float(data[1]),
-            'valoare_senzor_mq135': float(data[2]),
+            'PPM': PPM,
             'calitate_aer': data[4],
             'indiceConfort' : data[3]
         }
@@ -64,7 +74,7 @@ def get_air_quality_data():
 @app.route('/meteo/senzor', methods=['GET'])
 def get_sensor_data():
     car_data = read_serial_data()
-    return jsonify({'valoare_senzor_mq135': car_data['valoare_senzor_mq135']})
+    return jsonify({'PPM': int (car_data['PPM'])})
 
 # Endpoint pentru obținerea datelor meteorologice - senzor
 @app.route('/meteo/indice', methods=['GET'])

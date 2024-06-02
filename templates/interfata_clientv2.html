@@ -55,7 +55,7 @@
         <button onclick="getTemperatureData()">Temperatura</button>
         <button onclick="getHumidityData()">Umiditate</button>
         <button onclick="getAirQualityData()">Calitatea Aerului</button>
-        <button onclick="getSensorData()">Senzor</button>
+        <button onclick="getSensorData()">PPM Senzor</button>
         <button onclick="getComfortIndexData()">Indice Confort</button>
     </div>
     
@@ -126,8 +126,8 @@
                 if (err) {
                     console.error('Error:', err);
                 } else {
-                    console.log('Senzor:', data);
-                    alert('Valoare Senzor MQ135: ' + data.valoare_senzor_mq135);
+                    console.log('PPM Senzor:', data);
+                    alert('PPM: ' + data.PPM);
                 }
             });
         }
@@ -138,16 +138,7 @@
                     console.error('Error:', err);
                 } else {
                     console.log('Indice Confort:', data);
-                    var indiceConfort = data.indiceConfort;
-                    var confortMessage = '';
-                    if (indiceConfort < 65) {
-                        confortMessage = 'Indice Confort: ' + indiceConfort + ' - Stare de confort termic';
-                    } else if (indiceConfort >= 65 && indiceConfort < 80) {
-                        confortMessage = 'Indice Confort: ' + indiceConfort + ' - Stare de confort redus';
-                    } else {
-                        confortMessage = 'Indice Confort: ' + indiceConfort + ' - Stare de disconfort';
-                    }
-                    alert(confortMessage);
+                    alert('Indice Confort: ' + data.indiceConfort);
                 }
             });
         }
