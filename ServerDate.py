@@ -28,7 +28,7 @@ def read_serial_data():
     line = ser.readline().decode('latin1').strip()
     data = line.split(',')
     Vm = int(data[2])
-    PPM = 10 ** (1 / k * (math.log10(RL / Ro * ((Va / Vm) - 1)) - m)) * 1000000
+    PPM = (10 ** (1 / k * (math.log10(RL / Ro * ((Va / Vm) - 1)) - m))) * 1000000
     if len(data) == 5:
         car_data = {
             'temperatura': float(data[0]),
