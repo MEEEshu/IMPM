@@ -10,7 +10,6 @@ PPM = 0
 # Valorile pentru variabilele din formulă
 k = -0.464000  # Exemplu de valoare pentru k
 RL = 4700.000  # Exemplu de valoare pentru RL
-Ro = 100.000  # Exemplu de valoare pentru Ro
 Va = 4096.000  # Exemplu de valoare pentru Va
 #Vm = 2.5  # Exemplu de valoare pentru Vm
 m = 0.433000  # Exemplu de valoare pentru m
@@ -28,7 +27,9 @@ def read_serial_data():
     line = ser.readline().decode('latin1').strip()
     data = line.split(',')
     Vm = int(data[2])
-    PPM = (10 ** (1 / k * (math.log10(RL / Ro * ((Va / Vm) - 1)) - m))) * 1000000
+    Rs = (4095 / int(data[2]) - 1)*RL
+    R0 = Rs / 0.32
+    PPM = (10 ** (1 / k * (math.log10(RL / R0 * ((Va / Vm) - 1)) - m))) * 1000000
     if len(data) == 5:
         car_data = {
             'temperatura': float(data[0]),

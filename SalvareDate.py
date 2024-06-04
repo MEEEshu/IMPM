@@ -46,11 +46,13 @@ def save_to_csv(data):
 
 try:
     while True:
-        with serial.Serial('COM6', 9600) as ser:
+        with serial.Serial('COM7', 9600) as ser:
             line = ser.readline().decode('latin1').strip()
             data = line.split(',')
             Vm = int(data[2])
-            PPM = 10 ** (1 / k * (math.log10(RL / Ro * ((Va / Vm) - 1)) - m)) * 1000000
+            Rs = (4095 / int(data[2]) - 1)*RL
+            R0 = Rs / 0.32
+            PPM = (10 ** (1 / k * (math.log10(RL / R0 * ((Va / Vm) - 1)) - m))) * 1000000
             if len(data) == 5:
                 date_meteo = {
                     'Data': time.strftime("%Y-%m-%d %H:%M:%S"),
